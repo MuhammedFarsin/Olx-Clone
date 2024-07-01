@@ -8,17 +8,20 @@ import SellButton from "../../assets/SellButton";
 import SellButtonPlus from "../../assets/SellButtonPlus";
 import { AuthContext, FirebaseContext } from "../../store/Context";
 
-
 function Header() {
   const { user } = useContext(AuthContext);
-  const { auth } = useContext(FirebaseContext); // Corrected to use 'auth' instead of 'firebase'
+  const { auth } = useContext(FirebaseContext);
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if(!user){
-      navigate("/login")
+    if (!user) {
+      navigate("/login");
     }
-  }
+  };
+
+  const navigateSell = () => {
+    navigate("/create");
+  };
 
   return (
     <div className="headerParentDiv">
@@ -53,8 +56,13 @@ function Header() {
         {user && (
           <span
             onClick={() => {
-              auth.signOut();
-              navigate("/login");
+              auth.signOut()
+                .then(() => {
+                  navigate("/login");
+                })
+                .catch((error) => {
+                  console.error("Sign out error:", error);
+                });
             }}
           >
             Logout
@@ -64,7 +72,7 @@ function Header() {
           <SellButton />
           <div className="sellMenuContent">
             <SellButtonPlus />
-            <span>SELL</span>
+            <span onClick={navigateSell}>SELL</span>
           </div>
         </div>
       </div>

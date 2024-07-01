@@ -1,12 +1,12 @@
 import React, { createContext, useState } from 'react';
-import { auth } from '../firebase/config'; // Ensure you import the initialized auth
+import { auth, firestore, storage } from '../firebase/config'; // Ensure you import the initialized auth
 
 export const FirebaseContext = createContext(null);
 export const AuthContext = createContext(null);
 
 export const FirebaseProvider = ({ children }) => {
   return (
-    <FirebaseContext.Provider value={{ auth }}>
+    <FirebaseContext.Provider value={{ auth, storage, firestore }}>
       {children}
     </FirebaseContext.Provider>
   );

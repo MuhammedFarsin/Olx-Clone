@@ -1,10 +1,13 @@
-import React, { useEffect, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signup from './Pages/Signup';
-import Login from './Pages/Login';
-import Home from './Pages/Home';
-import { AuthContext, FirebaseContext } from './store/Context';
-import './App.css';
+import React, { useEffect, useContext } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Signup from "./Pages/Signup";
+import Login from "./Pages/Login";
+import Home from "./Pages/Home";
+import Create from "./Pages/Create";
+import Viewpost from "./Pages/ViewPost";
+import { AuthContext, FirebaseContext } from "./store/Context";
+import Post from "./store/PostContext";
+import "./App.css";
 
 function App() {
   const { setUser } = useContext(AuthContext);
@@ -21,14 +24,18 @@ function App() {
 
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
-      </Router>
+      <Post>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/view" element={<Viewpost />} />
+          </Routes>
+        </Router>
+      </Post>
     </div>
   );
 }
